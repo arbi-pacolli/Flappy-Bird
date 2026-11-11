@@ -506,6 +506,14 @@
   const groundHeight = 80;
   const clouds = [];
 
+  function getCurrentPipeSpeed() {
+    return pipes.baseSpeed + (score * 0.08);
+  }
+
+  function getSpeedMultiplier() {
+    return getCurrentPipeSpeed() / pipes.baseSpeed;
+  }
+
   function init() {
     resizeCanvas();
     bird.y = canvas.height / 2;
@@ -569,7 +577,7 @@
   }
 
   function update() {
-    bird.velocity += bird.gravity;
+    bird.velocity += bird.gravity * getSpeedMultiplier();
     bird.y += bird.velocity;
 
     // Bird rotation
@@ -590,7 +598,7 @@
       });
     }
 
-    const currentPipeSpeed = pipes.baseSpeed + (score * 0.08);
+    const currentPipeSpeed = getCurrentPipeSpeed();
 
     for (let i = 0; i < pipes.list.length; i++) {
       const pipe = pipes.list[i];
@@ -775,7 +783,7 @@
       case 'Space':
         e.preventDefault();
         if (!gameStarted && !gameOver) startGame();
-        else if (gameStarted && !gameOver && !paused) bird.velocity = bird.jumpStrength;
+        else if (gameStarted && !gameOver && !paused) bird.velocity = bird.jumpStrength * getSpeedMultiplier();
         else if (gameOver) restartGame();
         break;
       case 'KeyP':
@@ -789,7 +797,7 @@
 
   function handleClick() {
     if (!gameStarted && !gameOver) startGame();
-    else if (gameStarted && !gameOver && !paused) bird.velocity = bird.jumpStrength;
+    else if (gameStarted && !gameOver && !paused) bird.velocity = bird.jumpStrength * getSpeedMultiplier();
     else if (gameOver) restartGame();
   }
 

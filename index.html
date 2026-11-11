@@ -499,7 +499,7 @@
     gap: 180,
     minHeight: 50,
     maxHeight: 300,
-    baseSpeed: 3,
+    baseSpeed: 2.2,
     list: []
   };
 
@@ -590,7 +590,7 @@
       });
     }
 
-    const currentPipeSpeed = pipes.baseSpeed + (score * 0.05);
+    const currentPipeSpeed = pipes.baseSpeed + (score * 0.08);
 
     for (let i = 0; i < pipes.list.length; i++) {
       const pipe = pipes.list[i];
